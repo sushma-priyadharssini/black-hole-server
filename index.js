@@ -6,7 +6,7 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: "http://localhost:3000", // React client origin
+        origin: "https://black-hole-ui.vercel.app", // React client origin
         methods: ["GET", "POST"]
     }
 });
@@ -85,5 +85,5 @@ io.on('connection', (socket) => {
 });
 
 server.listen(port, () => {
-    console.log("Socket.IO server running on http://localhost:4000");
+    console.log("Socket.IO server is running now");
 });
