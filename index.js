@@ -84,6 +84,6 @@ io.on('connection', (socket) => {
     });
 });
 
-server.listen(4000, () => {
+server.listen(port, () => {
     console.log("Socket.IO server running on http://localhost:4000");
 });
