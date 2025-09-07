@@ -27,7 +27,6 @@ app.use(express.static('.'));
 const port = process.env.PORT || 4000;
 
 io.on('connection', (socket) => {
-    console.log('connected!');
     // Create a new game room and notify the creator of game.
     socket.on('createGame', (data) => {
         socket.join(`room-${++rooms}`);
@@ -44,9 +43,9 @@ io.on('connection', (socket) => {
             socket.broadcast.to(data.room).emit('player1', {});
             socket.emit('player2', { name: data.name, room: data.room })
         } else if (room && clientCount === 0) {
-            socket.emit('err', { message: 'Room does not exist!' });
+            socket.emit('err', { type: "room", message: 'Room does not exist!' });
         } else {
-            socket.emit('err', { message: 'Sorry, The room is full!' });
+            socket.emit('err', { type: "room", message: 'Sorry, The room is full!' });
         }
     });
 
@@ -64,7 +63,6 @@ io.on('connection', (socket) => {
        * Handle the Game winner to notify the other user
        */
     socket.on('declareWinner', function (data) {
-        console.log(data);
         socket.broadcast.to(data.room).emit('winnerDeclared', {
             winner: data.winner,
             score: data.score
