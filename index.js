@@ -64,6 +64,7 @@ io.on('connection', (socket) => {
        */
     socket.on('declareWinner', function (data) {
         socket.broadcast.to(data.room).emit('winnerDeclared', {
+            blackHole: data.blackHole,
             winner: data.winner,
             score: data.score
         });
